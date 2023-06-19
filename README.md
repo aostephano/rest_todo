@@ -58,6 +58,10 @@ Example:
 
 > ### Keywords
 
+**Auth User Model**:
+# You have to define yout AUTH_USER_MODEL in settings.py because you are using a custom user model.
+# https://docs.djangoproject.com/en/4.2/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
+
 **API**: Apllication Programming Interface. It is a set of routines and standards established by a software application
 to be used by another software as a **layer of abstraction**.
 
