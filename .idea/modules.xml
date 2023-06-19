@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../DjangoBasics/django_native_rest_api/.idea/django_native_rest_api.iml" filepath="$PROJECT_DIR$/../../DjangoBasics/django_native_rest_api/.idea/django_native_rest_api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/rest_todo.iml" filepath="$PROJECT_DIR$/.idea/rest_todo.iml" />
     </modules>
   </component>
