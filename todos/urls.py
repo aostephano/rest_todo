@@ -8,6 +8,7 @@ urlpatterns = [
     path('create/', views.todo_create),
     path('create_multiple/', views.todo_create_multiple),
     path('<int:todo_id>', views.todo_detail),
+    path('user_todos/<int:user_id>', views.user_todos),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json'])

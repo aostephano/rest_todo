@@ -1,6 +1,8 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from users.models import User
 from .models import Todo
 from .serializers import TodoSerializer
 
@@ -61,3 +63,18 @@ def todo_detail(request, todo_id, format=None):
         todo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     # Get current value > Delete the todo > Return Response + 200 Code
+
+
+@api_view(['GET'])
+def user_todos(request, user_id, format=None):
+    if request.method == 'GET':
+        try:
+            user = User.objects.get(id=user_id)
+            try:
+                todos = Todo.objects.filter(user=user_id)
+                serializer_todo = TodoSerializer(todos, many=True)
+                return Response(serializer_todo.data)
+            except Todo.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        except User.DoesNotExist:
+            return Response(status=404, data={'error': 'User not found'})
