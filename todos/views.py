@@ -6,7 +6,7 @@ from .serializers import TodoSerializer
 
 
 @api_view(['GET'])
-def todo_list(request):
+def todo_list(request, format=None):
     if request.method == 'GET':
         todos = Todo.objects.all()
         serializer_todo = TodoSerializer(todos, many=True)
@@ -14,7 +14,7 @@ def todo_list(request):
 
 
 @api_view(['POST'])
-def todo_create(request):
+def todo_create(request, format=None):
     if request.method == 'POST':
         serializer_todo = TodoSerializer(data=request.data)
         if serializer_todo.is_valid():
@@ -25,7 +25,7 @@ def todo_create(request):
 
 
 @api_view(['POST'])
-def todo_create_multiple(request):
+def todo_create_multiple(request, format=None):
     if request.method == 'POST':
         serializer_todo = TodoSerializer(data=request.data, many=True)
         if serializer_todo.is_valid():
@@ -36,7 +36,7 @@ def todo_create_multiple(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def todo_detail(request, todo_id):
+def todo_detail(request, todo_id, format=None):
     try:
         todo = Todo.objects.get(pk=todo_id)
     except Todo.DoesNotExist:

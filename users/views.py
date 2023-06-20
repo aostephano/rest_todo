@@ -4,7 +4,7 @@ from .models import User
 from .serializers import UserSerializer
 
 @api_view(['POST'])
-def create_user(request):
+def create_user(request, format=None):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -12,7 +12,7 @@ def create_user(request):
     return Response(serializer.errors, status=400)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def user_detail(request, user_id):
+def user_detail(request, user_id, format=None):
     try:
         user = User.objects.get(pk=user_id)
     except User.DoesNotExist:
