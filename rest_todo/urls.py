@@ -17,10 +17,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
+
 urlpatterns = [
+    # Django Admin
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
 
+    # JWT
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # You can also include a route for Simple JWT’s TokenVerifyView if you wish to allow API users to verify
+    # HMAC-signed tokens without having access to your signing key:
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
+    # My Own Apps
     path('api/users/', include('users.urls')),
     path('api/todos/', include('todos.urls')),
 ]

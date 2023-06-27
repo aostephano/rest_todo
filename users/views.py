@@ -1,8 +1,24 @@
+from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from .models import User
 from .serializers import UserSerializer
+from rest_framework.views import APIView
+
+
+class UserCreate(APIView):
+    permission_classes = [AllowAny]  # AllowAny because all non users can create a user
+
+    def post(self, request, format='json'):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()  # save() method is provided by ModelSerializer and call my UserSerializer.create()
+            # internally
+            if user:
+                json = serializer.data
+                return Response(json, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # 1. Create a User
@@ -42,4 +58,3 @@ def delete_user(request, pk):
     user = User.objects.get(pk=pk)
     user.delete()
     return Response(status=204)
-
