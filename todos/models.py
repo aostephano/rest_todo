@@ -2,6 +2,8 @@ from django.db import models
 
 from users.models import User
 
+app_name = 'todos'
+
 
 class Todo(models.Model):
     title = models.CharField(max_length=100)

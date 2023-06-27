@@ -8,6 +8,8 @@ Some text
 
 > ### Data External Representation
 
+- **Slug**: A slug is a short label for something, containing only letters, numbers, underscores or hyphens. 
+
 - **JSON**: JavaScript **O**bject **N**otation
 
 Example:
