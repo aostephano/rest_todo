@@ -10,9 +10,9 @@ urlpatterns = [
 
     # Func Based Views
     # path('todo_create', views.todo_create, name='todo_create'),
-    path('todo_create_multiple', views.todo_create_multiple, name='todo_create_multiple'),
-    path('<int:todo_id>', views.todo_detail, name='todo_detail'),
-    path('user_todos/<int:user_id>', views.user_todos, name='user_todos'),
+    # path('todo_create_multiple', views.todo_create_multiple, name='todo_create_multiple'),
+    # path('<int:todo_id>', views.todo_detail, name='todo_detail'),
+    # path('user_todos/<int:user_id>', views.user_todos, name='user_todos'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json'])

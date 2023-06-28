@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django.contrib.admindocs',
 
     'rest_framework',
@@ -153,8 +155,16 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 }
 
-# # JWT Config
-# SIMPLE_JWT = {
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
-#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-# }
+# JWT Config
+SIMPLE_JWT = {
+    # Token Schema
+    'AUTH_HEADER_TYPES': ('Bearer',),
+
+    # Token Lifetime
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=300),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+
+}
+
+
+
