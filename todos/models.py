@@ -12,6 +12,10 @@ class Todo(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
+    permissions = [
+        ('crud_todo', 'Can do CRUD operations on todos owned by user'),
+    ]
+
     def __str__(self):
-        return self.title + " - " + self.description
+        return self.title
 

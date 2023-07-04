@@ -9,6 +9,9 @@ urlpatterns = [
     # Class Based Views
     path('register', views.UserCreate.as_view(), name='register'),
     path('login', views.LoginView.as_view(), name='login'),
+    path('logout', views.LogoutView.as_view(), name='logout'),
+
+    path('my_protected_view', views.MyProtectView.as_view(), name='my_protected_view'),
 
     # Func Based Views
     # path('get_user/<int:pk>', views.get_user, name='get_user'),

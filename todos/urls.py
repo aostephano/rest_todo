@@ -5,8 +5,8 @@ from todos import views
 
 urlpatterns = [
     # Class Based Views
-    path('todo_user_list', views.TodoUserListView.as_view(), name='todo_user_list'),
-    path('todo_create', views.TodoCreateView.as_view(), name='todo_create'),
+    path('create', views.TodoCreateView.as_view(), name='create'),
+    # path('user_todos', views.TodoUserListView.as_view(), name='user_todos'),
 
     # Func Based Views
     # path('todo_create', views.todo_create, name='todo_create'),

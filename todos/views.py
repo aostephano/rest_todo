@@ -1,47 +1,5 @@
-from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import DjangoModelPermissions, BasePermission
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.generics import CreateAPIView
-
-from users.models import User
-from .models import Todo
-from .serializers import TodoSerializer
-
-
-class TodoUserWritePermission(BasePermission):
-    message = 'Editing todos is restricted to the author only.'
-
-    def has_object_permission(self, request, view, obj):
-        # Read permissions are allowed to any request
-        # so we'll always allow GET, HEAD or OPTIONS requests.
-        if request.method in ['GET', 'HEAD', 'OPTIONS']:
-            return True
-
-        # Write permissions are only allowed to the author of a todo.
-        return obj.user == request.user
-
-
-class TodoCreateView(CreateAPIView):
-    serializer_class = TodoSerializer
-    permission_classes = [TodoUserWritePermission]
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-
-class TodoUserListView(APIView):
-    permission_classes = [DjangoModelPermissions]
-
-    def get_queryset(self):
-        user = self.request.user
-        return Todo.objects.filter(user=user)
-
-    def get(self, request, format=None):
-        todos_from_user = self.get_queryset()
-        serializer_todo = TodoSerializer(todos_from_user, many=True)
-        return Response(serializer_todo.data)
+class TodoCreateView:
+    pass
 
 # class OldTodoCreateView(APIView):
 #     permission_classes = [TodoUserWritePermission]

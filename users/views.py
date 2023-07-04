@@ -17,14 +17,19 @@ class UserCreate(APIView):
         if serializer.is_valid():
             user = serializer.save()
 
-            # Generate tokens for the created user
-            refresh = TokenObtainPairSerializer.get_token(user)
-            tokens = {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
+            # # Generate tokens for the created user
+            # refresh = TokenObtainPairSerializer.get_token(user)
+            # tokens = {
+            #     'refresh': str(refresh),
+            #     'access': str(refresh.access_token),
+            # }
+            message = {
+                'success': 'User created successfully',
+                'username': user.username,
+                # 'tokens': tokens
             }
 
-            return Response(tokens, status=status.HTTP_201_CREATED)
+            return Response(message, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -41,7 +46,6 @@ class LoginView(APIView):
         if user is not None:  # user is authenticated, so isnt None
             login(request, user)
 
-            # Generate tokens for the created user
             refresh = TokenObtainPairSerializer.get_token(user)
             tokens = {
                 'refresh': str(refresh),
@@ -57,10 +61,19 @@ class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, format='json'):
-        request.user.auth_token.delete()
+            # add to token to blacklist
         logout(request)
         return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
 
+
+class MyProtectView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        content = {
+            'message': 'You are authenticated'
+        }
+        return Response(content)
 
 # class UserLogin(APIView):
 #     def post(self, request, format='json'):
