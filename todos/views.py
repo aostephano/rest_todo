@@ -1,5 +1,64 @@
-class TodoCreateView:
-    pass
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
+from rest_framework.permissions import IsAuthenticated
+from todos.models import Todo
+from todos.serializers import TodoSerializer
+
+
+# TODO: implement todo list view
+class TodoListView(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = TodoSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Todo.objects.filter(user=user)
+        return queryset
+
+
+class TodoCreateView(CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = TodoSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class TodoDetailView(RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = TodoSerializer
+    lookup_url_kwarg = 'todo_id'
+    queryset = Todo.objects.all()
+
+
+class TodoUpdateView(UpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = TodoSerializer
+    lookup_url_kwarg = 'todo_id'
+    queryset = Todo.objects.all()
+
+
+# class TodoListView(ListAPIView):\
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = TodoSerializer
+#
+#     def get_queryset(self):
+#         return self.request
+
+# class TodoListView(GenericAPIView):
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = TodoSerializer
+#
+#     def get_queryset(self):
+#         return self.request.user.todos.all()
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+#
+#     def list(self, request, param, param1):
+#         queryset = self.get_queryset()
+#         serializer = self.get_serializer(queryset, many=True)
+#         return Response(serializer.data)
+
 
 # class OldTodoCreateView(APIView):
 #     permission_classes = [TodoUserWritePermission]

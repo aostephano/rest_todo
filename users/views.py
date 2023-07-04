@@ -61,7 +61,7 @@ class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, format='json'):
-            # add to token to blacklist
+        # add to token to blacklist
         logout(request)
         return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
 

@@ -161,8 +161,8 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 
     # Token Lifetime
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=300),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30000),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=300),
 
 }
 
