@@ -1,5 +1,7 @@
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, RetrieveDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 from todos.models import Todo
 from todos.serializers import TodoSerializer
 
@@ -20,6 +22,7 @@ class TodoCreateView(CreateAPIView):
     serializer_class = TodoSerializer
 
     def perform_create(self, serializer):
+        print('TodoCreateView')
         serializer.save(user=self.request.user)
 
 
@@ -36,6 +39,16 @@ class TodoUpdateView(UpdateAPIView):
     lookup_url_kwarg = 'todo_id'
     queryset = Todo.objects.all()
 
+
+class DeleteUpdateView(RetrieveDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = TodoSerializer
+    lookup_url_kwarg = 'todo_id'
+    queryset = Todo.objects.all()
+
+
+def hello_world(request):
+    return Response({'message': 'Hello, World!'})
 
 # class TodoListView(ListAPIView):\
 #     permission_classes = [IsAuthenticated]
