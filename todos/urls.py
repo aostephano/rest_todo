@@ -9,7 +9,7 @@ urlpatterns = [
     path('<int:todo_id>/', views.TodoDetailView.as_view(), name='todo_detail'),
     path('update/<int:todo_id>/', views.TodoUpdateView.as_view(), name='todo_detail'),
     path('delete/<int:todo_id>/', views.DeleteUpdateView.as_view(), name='todo_delete'),
-    path('delete/<int:todo_id>/', views.DeleteUpdateView.as_view(), name='todo_detail'),
+    path('detail/<int:todo_id>/', views.DeleteUpdateView.as_view(), name='todo_detail'),
 
     # path('user_todos', views.TodoUserListView.as_view(), name='user_todos'),
     # Func Based Views
