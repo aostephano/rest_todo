@@ -13,7 +13,7 @@ class TodoListView(ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Todo.objects.filter(user=user)
+        queryset = Todo.objects.filter(user=user).order_by('-id')
         return queryset
 
 
@@ -30,21 +30,21 @@ class TodoDetailView(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = TodoSerializer
     lookup_url_kwarg = 'todo_id'
-    queryset = Todo.objects.all()
+    queryset = Todo.objects.all().order_by('-id')
 
 
 class TodoUpdateView(UpdateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = TodoSerializer
     lookup_url_kwarg = 'todo_id'
-    queryset = Todo.objects.all()
+    queryset = Todo.objects.all().order_by('-id')
 
 
 class DeleteUpdateView(RetrieveDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = TodoSerializer
     lookup_url_kwarg = 'todo_id'
-    queryset = Todo.objects.all()
+    queryset = Todo.objects.all().order_by('-id')
 
 
 def hello_world(request):
